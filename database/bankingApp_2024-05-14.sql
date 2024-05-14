@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 11.2.2-MariaDB-1:11.2.2+maria~ubu2204)
 # Database: bankingApp
-# Generation Time: 2024-05-14 08:39:49 +0000
+# Generation Time: 2024-05-14 08:50:48 +0000
 # ************************************************************
 
 
@@ -63,7 +63,7 @@ DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `account_id` int(11) NOT NULL,
-  `transaction_value` decimal(8,0) NOT NULL,
+  `transaction_value` decimal(8,2) NOT NULL,
   `corresponding_account` int(8) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
