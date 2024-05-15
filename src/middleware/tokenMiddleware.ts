@@ -1,7 +1,7 @@
 import { User } from "../models/customerModel";
 import { Response } from "express";
-import { UserRequest } from "./registerController";
-import {getEnv} from "./registerController";
+import { UserRequest } from "../controllers/registerController";
+import {getEnv} from "../controllers/registerController";
 import * as jwt from 'jsonwebtoken'
 import * as dotenv from 'dotenv'
 import { JwtPayload } from "jsonwebtoken";
@@ -29,9 +29,9 @@ const authenticateToken = (head: any | undefined, res: Response) => {
     }
 }
 
-const tokenController = async (req: UserRequest<User>, res: Response) => {
+const tokenMiddleware = async (req: UserRequest<User>, res: Response) => {
     const header = req.headers.authorization
     authenticateToken(header, res)
 }
 
-export default tokenController
+export default tokenMiddleware
