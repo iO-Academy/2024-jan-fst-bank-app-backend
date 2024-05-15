@@ -6,7 +6,7 @@ export interface User {
     last_name: string,
     email: string,
     passcode: string,
-    customer_number: string
+    customer_number?: string
 }
 
 export const createCustomer = (user: User): Promise<any> => {

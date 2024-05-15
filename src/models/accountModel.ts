@@ -1,7 +1,7 @@
 import dbConnection from "../dbConnection/dbConnection";
 
 export interface Account {
-    customer_id: string,
+    customer_id?: string,
     account_type: string,
     balance: number,
     interest_rate: number,
