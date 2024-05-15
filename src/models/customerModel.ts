@@ -25,3 +25,19 @@ export const createCustomer = (user: User): Promise<any> => {
             })
     })
 }
+
+export const customerLogin = (customer_number: string, passcode: string): Promise<any> => {
+    const query = `SELECT first_name, last_name, email, customer_number, passcode FROM customers
+                   WHERE customer_number = ?`
+
+    return new Promise((resolve, reject): void => {
+        dbConnection.query(query, [customer_number],
+            (err: Error | null, results: any): void => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(results[0])
+                }
+            })
+    })
+}
