@@ -111,3 +111,40 @@
     ```
     {"message": "Unexpected Error", "data":[]}
     ```
+  ### New Account
+
+* **URL:**  
+  /newAccount
+* **Method:**  
+  POST
+* **URL Params**  
+  **Required:**  
+  There are no required URL params  
+  **Optional:**  
+  There are no optional URL params
+* **Body Data:**  
+  **Required:**
+* ```
+    {
+        "customer_id": "x",
+        "account_type": "y",
+        "balance": "z",
+        "interest_rate": "x",
+        "custom_label": "y",
+        "account_number": "z"
+    }
+    ```
+  There is no required body data
+* **Success Response:**  
+  **Code:** 201  
+  **Content:**
+    ```
+    {"message": "New account created"",
+      "account": []}
+    ```
+* **Error Response:**
+  **Code:** 500 SERVER ERROR  
+  **Content:**
+    ```
+    {"message": "Unexpected Error", "data":[]}
+    ```
