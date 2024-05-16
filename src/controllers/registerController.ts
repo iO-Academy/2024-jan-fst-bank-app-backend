@@ -40,10 +40,14 @@ const registerController = async (req: Request, res) => {
     const user = req.body
     user.customer_number = await generateUniqueNumber()
     if (verifyInput(user)){
-        user.passcode = await bcrypt.hash(user.passcode, 10)
-        await createCustomer(user)
-        await createFirstAccount(user)
-        res.status(201).send({'message': 'Successfully registered user.'})
+        try {
+            user.passcode = await bcrypt.hash(user.passcode, 10)
+            await createCustomer(user)
+            await createFirstAccount(user)
+            res.status(201).send({'message': 'Successfully registered user.'})
+        } catch {
+            res.status(500).send({'message': 'Internal Server Error'})
+        }
     } else {
         res.status(400).send({'message': 'Invalid register data', "data": user})
     }

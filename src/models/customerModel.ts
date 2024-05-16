@@ -1,7 +1,7 @@
 
 import dbConnection from "../dbConnection/dbConnection";
 
-export interface User {
+export interface IUser {
     first_name: string,
     last_name: string,
     email: string,
@@ -9,7 +9,7 @@ export interface User {
     customer_number: string
 }
 
-export const createCustomer = (user: User): Promise<any> => {
+export const createCustomer = (user: IUser): Promise<any> => {
     const query =
         `INSERT INTO customers (first_name, last_name, email, passcode, customer_number)
          VALUES (?, ?, ?, ?, ?)`

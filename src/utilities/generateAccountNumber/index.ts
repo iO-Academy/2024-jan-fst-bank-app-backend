@@ -1,4 +1,4 @@
-const generateAccountNumber = ():number => {
+export const generateAccountNumber = ():number => {
     let accountNumber: string = ''
     for (let i:number = 0; i < 8; i++) {
         accountNumber += (Math.floor(Math.random() * (10)).toString())
@@ -6,4 +6,3 @@ const generateAccountNumber = ():number => {
     return Number(accountNumber)
 }
 
-export default generateAccountNumber()

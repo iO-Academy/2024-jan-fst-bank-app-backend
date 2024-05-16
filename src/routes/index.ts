@@ -4,5 +4,5 @@ import registerController from "../controllers/registerController";
 
 router.post('/register', registerController);
 router.get('/', (req: Request, res: Response) => {
-    res.send("hello from index");
+    res.send("hello from index");  // Remember to delete when happy
 });
