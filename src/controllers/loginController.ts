@@ -14,9 +14,9 @@ export const getEnv = () => {
     return process.env["TOKEN_SECRET"]
 }
 
-const generateToken = (customer_number: string, passcode: string): string | undefined => {
-    const apikey: string|JwtPayload = getEnv()
-    return jwt.sign({customer_number: customer_number, passcode: passcode}, apikey, {expiresIn: '1000s'})
+const generateToken = (customerNumber: string, passcode: string): string | undefined => {
+    const apikey: string | JwtPayload = getEnv()
+    return jwt.sign({customer_number: customerNumber, passcode: passcode}, apikey, {expiresIn: '1000s'})
 }
 
 const allowAccess = (result: boolean, customer: IUser, res: Response) => {

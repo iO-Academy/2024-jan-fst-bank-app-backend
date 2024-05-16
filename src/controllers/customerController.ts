@@ -1,4 +1,4 @@
-import {getAccountsByCustomerNumber} from "../models/accountModel";
+import { getAccountsByCustomerNumber } from "../models/accountModel";
 import { Request, Response } from "express";
 
 const customerController = async (req: Request, res: Response) => {
