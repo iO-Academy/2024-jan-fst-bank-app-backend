@@ -3,6 +3,8 @@ import {checkCustomerNumberExists, createAccount} from "../models/accountModel";
 import * as bcrypt from 'bcrypt'
 import * as EmailValidator from 'email-validator'
 import {createFirstAccount} from "./newAccountController";
+import {IUser} from "../models/customerModel";
+import { Request, Response } from 'express'
 
 const generateCustomerNumber = (): number => {
     return Math.floor(100000000000 + Math.random() * 900000000000)
@@ -13,7 +15,7 @@ const generateUniqueNumber = async (): Promise<any> => {
     do {
         number = generateCustomerNumber()
     } while (await checkCustomerNumberExists(number))
-    return number
+    return number.toString()
 }
 
 const verifyEmail = (email: string) => {
@@ -30,21 +32,26 @@ const verifyPasscode = (passcode: string) => {
     return passcodeRegex.test(passcode)
 }
 
-const verifyInput = (user) => {
+const verifyInput = (user: IUser) => {
     return (verifyName(user.first_name)
         && verifyName(user.last_name) && verifyEmail(user.email)
         && verifyPasscode(user.passcode))
 }
 
-const registerController = async (req: Request, res) => {
+export interface UserRequest<T> extends Request {
+    body: T
+}
+
+const registerController = async (req: UserRequest<IUser>, res: Response) => {
     const user = req.body
+    // @ts-ignore
     user.customer_number = await generateUniqueNumber()
     if (verifyInput(user)){
         try {
             user.passcode = await bcrypt.hash(user.passcode, 10)
             await createCustomer(user)
             await createFirstAccount(user)
-            res.status(201).send({'message': 'Successfully registered user.'})
+            res.status(201).send({'message': 'Successfully registered user'})
         } catch {
             res.status(500).send({'message': 'Internal Server Error'})
         }

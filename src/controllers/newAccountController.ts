@@ -6,7 +6,7 @@ import { generateAccountNumber } from "../utilities/generateAccountNumber";
 
 const buildAccountObject = (user: IUser): IAccount => {
     const accountNumber = generateAccountNumber()
-    return {
+    return <IAccount>{
         customer_id: user.customer_number,
         account_type: 'standard',
         balance: 0,
