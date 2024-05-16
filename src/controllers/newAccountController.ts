@@ -18,11 +18,6 @@ const buildAccountObject = (user: IUser): IAccount => {
 
 export const createFirstAccount = async (user: IUser) => {
     const userAccount: IAccount = buildAccountObject(user)
-    try {
         await createAccount(userAccount)
         await addMoney(150, userAccount.account_number)
-    }
-    catch {
-        return
-    }
 }
