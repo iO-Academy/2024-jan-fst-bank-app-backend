@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import {customerLogin} from "../models/customerModel";
-import {User} from "../models/customerModel";
+import {IUser} from "../models/customerModel";
 import * as bcrypt from "bcrypt";
 import {JwtPayload} from "jsonwebtoken";
 import * as jwt from "jsonwebtoken";
@@ -19,7 +19,7 @@ const generateToken = (customer_number: string, passcode: string): string | unde
     return jwt.sign({customer_number: customer_number, passcode: passcode}, apikey, {expiresIn: '1000s'})
 }
 
-const allowAccess = (result: boolean, customer: User, res: Response) => {
+const allowAccess = (result: boolean, customer: IUser, res: Response) => {
     if (result) {
         const token = generateToken(String(customer.customer_number), String(customer.passcode))
         return res.status(200).send({'message': 'Login successful', 'data': customer, 'token': token})

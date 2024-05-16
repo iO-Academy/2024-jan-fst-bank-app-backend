@@ -1,4 +1,4 @@
-import { User } from "../models/customerModel";
+import { IUser } from "../models/customerModel";
 import { Response } from "express";
 import { UserRequest } from "../controllers/registerController";
 import {getEnv} from "../controllers/loginController";
@@ -29,7 +29,7 @@ const authenticateToken = (head: any | undefined, res: Response, next: () => voi
     }
 }
 
-const tokenMiddleware = async (req: UserRequest<User>, res: Response, next: () => void) => {
+const tokenMiddleware = async (req: UserRequest<IUser>, res: Response, next: () => void) => {
     const header = req.headers.authorization
     authenticateToken(header, res, next)
 }

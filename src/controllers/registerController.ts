@@ -3,7 +3,7 @@ import {checkCustomerNumberExists, createAccount} from "../models/accountModel";
 import * as bcrypt from 'bcrypt'
 import * as EmailValidator from 'email-validator'
 import {createFirstAccount} from "./newAccountController";
-import {User} from "../models/customerModel";
+import {IUser} from "../models/customerModel";
 import { Request, Response } from 'express'
 
 const generateCustomerNumber = (): number => {
@@ -32,7 +32,7 @@ const verifyPasscode = (passcode: string) => {
     return passcodeRegex.test(passcode)
 }
 
-const verifyInput = (user: User) => {
+const verifyInput = (user: IUser) => {
     return (verifyName(user.first_name)
         && verifyName(user.last_name) && verifyEmail(user.email)
         && verifyPasscode(user.passcode))
@@ -42,16 +42,19 @@ export interface UserRequest<T> extends Request {
     body: T
 }
 
-const registerController = async (req: UserRequest<User>, res: Response) => {
+const registerController = async (req: UserRequest<IUser>, res: Response) => {
     const user = req.body
     // @ts-ignore
     user.customer_number = await generateUniqueNumber()
     if (verifyInput(user)){
-        // @ts-ignore
-        user.passcode = await bcrypt.hash(user.passcode, 10)
-        await createCustomer(user)
-        await createFirstAccount(user)
-        res.status(201).send({'message': 'Successfully registered user.', "customer": {"first_name": user.first_name, "customer_number": user.customer_number}})
+        try {
+            user.passcode = await bcrypt.hash(user.passcode, 10)
+            await createCustomer(user)
+            await createFirstAccount(user)
+            res.status(201).send({'message': 'Successfully registered user'})
+        } catch {
+            res.status(500).send({'message': 'Internal Server Error'})
+        }
     } else {
         res.status(400).send({'message': 'Invalid register data', "data": user})
     }

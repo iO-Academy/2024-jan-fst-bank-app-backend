@@ -1,7 +1,7 @@
 import dbConnection from "../dbConnection/dbConnection";
 
-export interface Account {
-    customer_id?: string,
+export interface IAccount {
+    customer_id: string,
     account_type: string,
     balance: number,
     interest_rate: number,
@@ -25,9 +25,8 @@ export const addMoney = (amount: number, account_number: number): Promise<any> =
     })
 }
 
-export const createAccount = (account: Account): Promise<any> => {
-    const query = `INSERT INTO accounts (customer_id, account_type, balance, 
-                      interest_rate, custom_label, account_number)
+export const createAccount = (account: IAccount): Promise<any> => {
+    const query = `INSERT INTO accounts (customer_id, account_type, balance, interest_rate, custom_label, account_number)
                                             VALUES (?,?,?,?,?,?)`
 
     return new Promise((resolve, reject): void => {

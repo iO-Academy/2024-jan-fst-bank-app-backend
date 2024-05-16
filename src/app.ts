@@ -5,6 +5,6 @@ const app = express()
 app.use(express.json())
 const port = 3000
 
-app.listen(port)
-
 app.use('/', router)
+
+app.listen(port)

@@ -9,5 +9,5 @@ router.post('/register', registerController);
 router.post('/login', loginController)
 router.get('/user/:id', tokenMiddleware, customerController)
 router.get('/', (req: Request, res: Response) => {
-    res.send("hello from index");
+    res.send("hello from index");  // Remember to delete when happy
 });
