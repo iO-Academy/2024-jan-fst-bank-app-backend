@@ -52,7 +52,7 @@ const registerController = async (req: UserRequest<IUser>, res: Response) => {
             await createCustomer(user)
             await createFirstAccount(user)
             res.status(201).send({'message': 'Successfully registered user',
-                                    'customerNumber' : user.customer_number})
+                                    'customerNumber': user.customer_number})
         } catch {
             res.status(500).send({'message': 'Internal Server Error'})
         }
