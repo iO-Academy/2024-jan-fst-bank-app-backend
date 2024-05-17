@@ -24,7 +24,7 @@ const allowAccess = (result: boolean, customer: IUser, res: Response) => {
         const token = generateToken(String(customer.customer_number), String(customer.passcode))
         return res.status(200).send({'message': 'Login successful', 'data': customer, 'token': token})
     } else {
-        res.status(401).send({'message': "User does not exist"})
+        return res.status(401).send({'message': "Incorrect login details"})
     }
 }
 
