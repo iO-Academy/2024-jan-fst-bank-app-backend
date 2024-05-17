@@ -3,7 +3,7 @@ import {createTransaction} from "../models/transactionModel";
 import { Request, Response } from "express";
 import {retrieveTransactionHistory} from "../models/transactionModel";
 
-const transactionController = async (req: Request, res: Response) => {
+export const makeTransaction = async (req: Request, res: Response) => {
     const transaction_value: number = req.body.transaction_value
     const account_id: number = req.body.account_id
     const corresponding_account: number = req.body.corresponding_account
@@ -25,5 +25,3 @@ export const transactionHistory = async (req: Request, res: Response) => {
         return res.status(401).send({'message': "Failed to retrieve transaction history"})
     }
 }
-
-export default transactionController
