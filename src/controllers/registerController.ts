@@ -51,7 +51,8 @@ const registerController = async (req: UserRequest<IUser>, res: Response) => {
             user.passcode = await bcrypt.hash(user.passcode, 10)
             await createCustomer(user)
             await createFirstAccount(user)
-            res.status(201).send({'message': 'Successfully registered user'})
+            res.status(201).send({'message': 'Successfully registered user',
+                                    'customerNumber': user.customer_number})
         } catch {
             res.status(500).send({'message': 'Internal Server Error'})
         }
